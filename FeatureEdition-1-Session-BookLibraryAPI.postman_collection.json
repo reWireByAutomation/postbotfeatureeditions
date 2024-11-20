@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "c38b8d87-334f-42ae-be23-9600ca8a20e5",
+		"name": "FeatureEdition-1-Session-BookLibraryAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3901765",
+		"_collection_link": "https://rewirebyautomation.postman.co/workspace/POSTBOT-EDITION1-PREP-MOCK1~339631a2-2081-4a4a-882f-634ada813624/collection/3901765-c38b8d87-334f-42ae-be23-9600ca8a20e5?action=share&source=collection_link&creator=3901765"
+	},
+	"item": [
+		{
+			"name": "BOOKS",
+			"item": [
+				{
+					"name": "GetBooks",
+					"item": [
+						{
+							"name": "GetBookById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "o-T3j9D4wykEktJ"
+										}
+									]
+								},
+								"description": "Gets a single book by id"
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllBooks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "borges",
+											"description": "a search string to be matched against author/title (example: borges). Case insensitive, partial match OK.",
+											"disabled": true
+										},
+										{
+											"key": "checkedOut",
+											"value": "false",
+											"description": "true/false",
+											"disabled": true
+										},
+										{
+											"key": "genre",
+											"value": "fiction",
+											"description": "filter by genre (case-insensitive, exact match)",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Returns all books in the library database. \n\nOptional filters can be passed as query parameters."
+							},
+							"response": []
+						},
+						{
+							"name": "GetBookByGenre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books?genre=fiction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "genre",
+											"value": "fiction"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "BookRequesByInValidID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "o-T3j9D4wykEkt123"
+										}
+									]
+								},
+								"description": "Gets a single book by id"
+							},
+							"response": []
+						},
+						{
+							"name": "BookRequestByInValidParam",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books?title=Intro to Testing",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Intro to Testing"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CreateBooks",
+					"item": [
+						{
+							"name": "AddBook",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								},
+								"description": "Adds a book to the Library. Books added by users are deleted from the library 12 hours after they have been created."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageBooks",
+					"item": [
+						{
+							"name": "UpdateBookRequestByInValidID",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"checkedOut\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5bebd06b-2d5f-4988-b163-3b4de039a97f"
+										}
+									]
+								},
+								"description": "### Update a book by id\n\nUpdate any of these fields for a book with given `id` via the JSON body: \n\n- `title` (string)\n- `author` (string)\n- `genre` (string)\n- `yearPublished` (integer)\n- `checkedOut` (boolean)\n\n> Note: **Only user-added books can be edited**. Some books are part of the library's canonical collection and cannot be edited."
+							},
+							"response": [
+								{
+									"name": "update book",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"checkedOut\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "{{id}}"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 12 Jun 2021 00:44:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "16"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "x-powered-by",
+											"value": "Express"
+										},
+										{
+											"key": "etag",
+											"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"OK\"\n}"
+								}
+							]
+						},
+						{
+							"name": "DeleteBookRequestByInValidID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "9205ff51-b3d9-45dd-940d-acd43ba228cf"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "delete book",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "{{id}}"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 12 Jun 2021 00:45:04 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "16"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "x-powered-by",
+											"value": "Express"
+										},
+										{
+											"key": "etag",
+											"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"OK\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-library-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "ZUST9JFx-Sd9X0k",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "asdhfjkd",
+			"type": "string"
+		}
+	]
+}
