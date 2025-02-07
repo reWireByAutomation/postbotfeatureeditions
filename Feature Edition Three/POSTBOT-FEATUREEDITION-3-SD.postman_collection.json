@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "c49d6649-c7ff-444f-a00f-5d671681bf71",
+		"name": "POSTBOT-FEATUREEDITION-3-SD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3901765",
+		"_collection_link": "https://rewirebyautomation.postman.co/workspace/POSTBOT-FEEATUREEDITION-3-PREP~2024e0f2-681a-4dcf-9659-780ab54faab7/collection/3901765-c49d6649-c7ff-444f-a00f-5d671681bf71?action=share&source=collection_link&creator=3901765"
+	},
+	"item": [
+		{
+			"name": "BOOKS",
+			"item": [
+				{
+					"name": "GetBooks",
+					"item": [
+						{
+							"name": "GetBookById",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.clear();"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Genre field value is 'fiction'\", function () {\r",
+											"    pm.expect(pm.response.json().genre).to.equal('fiction');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Title field value is as expected\", function () {\r",
+											"    pm.expect(pm.response.json().title).to.equal('Liaison platforms Metal system Communications');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"CheckedOut field value is false\", function () {\r",
+											"    pm.expect(pm.response.json().checkedOut).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ID field value is as expected\", function () {\r",
+											"    pm.expect(pm.response.json().id).to.equal('iBKxaanzpn1ugeb');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body has content type of application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"//User Prompts for the above scripts:\r",
+											"// add test for response code validation\r",
+											"// Add test for \"genre\" field value\r",
+											"// add test for \"title\" field value validation\r",
+											"// add test for \"checkedout\" field value validation\r",
+											"// add test for \"id\" field value validation\r",
+											"// Add a test to validate response body content type includes (\"application/json\")"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "iBKxaanzpn1ugeb"
+										}
+									]
+								},
+								"description": "Gets a single book by id"
+							},
+							"response": [
+								{
+									"name": "GetBookByIdResponse",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "iBKxaanzpn1ugeb"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Content-Length",
+											"value": "208"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "x-powered-by",
+											"value": "Express"
+										},
+										{
+											"key": "etag",
+											"value": "W/\"d0-nshfolxYvilprRG0I3Jno/Ti7Qg\""
+										},
+										{
+											"key": "Accept-Ranges",
+											"value": "bytes"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Feb 2025 05:05:17 GMT"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 varnish"
+										},
+										{
+											"key": "X-Served-By",
+											"value": "cache-dfw-kdal2120060-DFW"
+										},
+										{
+											"key": "X-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Cache-Hits",
+											"value": "0"
+										},
+										{
+											"key": "X-Timer",
+											"value": "S1738818318.702469,VS0,VE103"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"title\": \"Liaison platforms Metal system Communications\",\n    \"author\": \"Gabriel García Márquez\",\n    \"id\": \"iBKxaanzpn1ugeb\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967,\n    \"checkedOut\": false,\n    \"createdAt\": \"2025-02-06 02:00:33\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "CreateBooks",
+					"item": [
+						{
+							"name": "AddBook",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validate 'message' field value\", function () {\r",
+											"    pm.response.to.have.jsonBody('message', 'OK');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body content type is application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"//User Prompts for the above scripts:\r",
+											"// add test for response code validation\r",
+											"// add test for \"message\" field value\r",
+											"// Add a test to validate response body content type includes (\"application/json\")\r",
+											"// modify statement with pm.expect"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.clear();"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								},
+								"description": "Adds a book to the Library. Books added by users are deleted from the library 12 hours after they have been created."
+							},
+							"response": [
+								{
+									"name": "AddBookResponse",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Content-Length",
+											"value": "16"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "x-powered-by",
+											"value": "Express"
+										},
+										{
+											"key": "etag",
+											"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+										},
+										{
+											"key": "Accept-Ranges",
+											"value": "bytes"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Feb 2025 05:15:08 GMT"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 varnish"
+										},
+										{
+											"key": "X-Served-By",
+											"value": "cache-dfw-kdal2120050-DFW"
+										},
+										{
+											"key": "X-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Cache-Hits",
+											"value": "0"
+										},
+										{
+											"key": "X-Timer",
+											"value": "S1738818909.834534,VS0,VE79"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"OK\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-library-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "ZUST9JFx-Sd9X0k",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "asdhfjkd",
+			"type": "string"
+		}
+	]
+}
